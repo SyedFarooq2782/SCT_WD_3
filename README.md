@@ -83,4 +83,4 @@ Have questions or suggestions? Reach out to me:
 
 ## 💻 Made with passion and precision  
 
-## ❤️ By Abdul Sammed as a part of Skill craft intern
+## By Syed Umar Farooq as a part of Skill craft intern !!!
