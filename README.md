@@ -63,6 +63,7 @@ Example for your profile:
    * Play and enjoy!
    * Toggle dark/light theme.
    * Track your score across sessions.
+   * Reset your scorecard whenever you want.
 
 ## 🤝 Contributions
 
