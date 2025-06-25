@@ -24,7 +24,7 @@ This project allows two players to play Tic Tac Toe in the browser with features
 	|── .github/
    	|	└── workflows/
         |		└── deploy.yml     # 🚀 GitHub Actions deployment workflow
-	├── Tic-Tac-Toe.html           	   # Main HTML file (In which CSS styles is used for light/dark mode, layout)
+	├── Tic-Tac-Toe.html           	   # Main HTML file (In which CSS styles is used for light/dark mode, layout and Logic – game functionality, scoreboard tracking, theme switching)
 	├── README.md            	   # Project documentation
 	├── output.pdf          	   # 🖨️ Printable version of the website│
 	├── images/             	   # 🖼️ Folder for all screenshots and output images
