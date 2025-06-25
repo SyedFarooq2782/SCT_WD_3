@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic-Tac-Toe | SkillCraft Task 03</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --card: #1e1e2f;
+      --primary: #00c4cc;
+      --accent: #f72585;
+      --win: #3cb371;
+      --font: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: #fff;
+      font-family: var(--font);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-block-size: 100vh;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-block-end: 10px;
+      text-align: center;
+    }
+
+    .game-container {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      max-inline-size: 400px;
+      inline-size: 100%;
+    }
+
+    select, button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 1rem;
+      margin: 10px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    select:hover, button:hover {
+      background: var(--accent);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 10px;
+      justify-content: center;
+      margin-block-start: 20px;
+    }
+
+    .cell {
+      background: #292947;
+      border-radius: 12px;
+      font-size: 2rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .cell:hover {
+      background: #3c3c5e;
+      transform: scale(1.05);
+    }
+
+    .cell.win {
+      background: var(--win);
+      animation: flash 0.4s alternate infinite;
+    }
+
+    @keyframes flash {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .status {
+      margin: 20px 0 10px;
+      font-size: 1.2rem;
+      text-align: center;
+      color: #ccc;
+    }
+
+    @media (max-inline-size: 500px) {
+      .board {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+      }
+
+      .cell {
+        font-size: 1.5rem;
+      }
+
+      .game-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tic-Tac-Toe</h1>
+
+  <div class="game-container">
+    <select id="modeSelect">
+      <option value="human">🎮 2 Player Mode</option>
+      <option value="ai">🤖 Play vs Computer</option>
+    </select>
+
+    <div class="status" id="status">Current Turn: X</div>
+
+    <div class="board" id="board"></div>
+
+    <button onclick="resetGame()">🔄 Reset Game</button>
+  </div>
+
+  <script>
+    const board = document.getElementById('board');
+    const statusText = document.getElementById('status');
+    const modeSelect = document.getElementById('modeSelect');
+
+    let cells = [];
+    let currentPlayer = "X";
+    let gameOver = false;
+    let mode = "human";
+
+    const winPatterns = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
+    ];
+
+    function createBoard() {
+      board.innerHTML = '';
+      cells = [];
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.dataset.index = i;
+        cell.addEventListener('click', handleClick);
+        board.appendChild(cell);
+        cells.push(cell);
+      }
+      updateStatus(`Current Turn: ${currentPlayer}`);
+      gameOver = false;
+    }
+
+    function handleClick(e) {
+      const index = e.target.dataset.index;
+      if (cells[index].textContent || gameOver) return;
+      cells[index].textContent = currentPlayer;
+
+      if (checkWin(currentPlayer)) {
+        updateStatus(`${currentPlayer} Wins! 🎉`);
+        gameOver = true;
+        return;
+      }
+
+      if (isDraw()) {
+        updateStatus("It's a Draw! 🤝");
+        gameOver = true;
+        return;
+      }
+
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+      updateStatus(`Current Turn: ${currentPlayer}`);
+
+      if (mode === "ai" && currentPlayer === "O" && !gameOver) {
+        setTimeout(aiMove, 500);
+      }
+    }
+
+    function aiMove() {
+      const empty = cells.filter(c => !c.textContent);
+      if (empty.length === 0) return;
+      const randomCell = empty[Math.floor(Math.random() * empty.length)];
+      randomCell.click();
+    }
+
+    function checkWin(player) {
+      return winPatterns.some(pattern => {
+        if (pattern.every(index => cells[index].textContent === player)) {
+          pattern.forEach(i => cells[i].classList.add('win'));
+          return true;
+        }
+        return false;
+      });
+    }
+
+    function isDraw() {
+      return cells.every(cell => cell.textContent);
+    }
+
+    function resetGame() {
+      currentPlayer = "X";
+      createBoard();
+    }
+
+    function updateStatus(message) {
+      statusText.textContent = message;
+    }
+
+    modeSelect.addEventListener('change', () => {
+      mode = modeSelect.value;
+      resetGame();
+    });
+
+    // Init
+    createBoard();
+  </script>
+
+</body>
+</html>
