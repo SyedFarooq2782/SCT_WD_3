@@ -28,8 +28,8 @@ This project allows two players to play Tic Tac Toe in the browser with features
 	├── README.md            	   # Project documentation
 	├── output.pdf          	   # 🖨️ Printable version of the website│
 	├── images/             	   # 🖼️ Folder for all screenshots and output images
-   		├── img1.jpg
-    		├── img2.jpg
+   		├── image-1.png
+    		├── image-2.png
     		└── ...
     		
 ```
