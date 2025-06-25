@@ -42,9 +42,6 @@ Once you push this to a public GitHub repository and enable GitHub Pages, your g
 https://<your-github-username>.github.io/<repository-name>/
 ```
 
-Example for your profile:
-➡️ [https://SyedFarooq2782.github.io/SCT_WD_3](https://SyedFarooq2782.github.io/SCT_WD_3)
-
 ## 🛠️ How to Use
 
 1. **Clone the Repository**
