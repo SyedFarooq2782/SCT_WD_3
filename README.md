@@ -6,6 +6,8 @@ Welcome to the **Tic Tac Toe** web game repository! This is a fun and beginner-f
 
 This project allows two players to play Tic Tac Toe in the browser with features that make the game interactive and user-friendly. It's ideal for those who are just getting started with frontend web development or JavaScript DOM manipulation.
 
+## Live Preview: https://syedfarooq2782-tic-tac-toe-game.netlify.app/
+
 ### ✨ Key Features
 
 * 🎮 **Two-player mode** with custom name input
